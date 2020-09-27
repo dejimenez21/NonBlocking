@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "b3XCfLb7XmfnZrESDEuxuVm9bLDYmZwZ8YotTEm2ZSL4Ti3X2ESSyN/C7rQZQBC1eFNxILEJtrPDTtI1OPIjjQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dejim\\OneDrive\\Documents\\INTEC\\Desarrollo web\\Non-Blocking IO\\ImagesAPI\\ImagesAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dejim\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
+    "C:\\Users\\dejim\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
+    "C:\\Users\\dejim\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\dejim\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\dejim\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
+    "C:\\Users\\dejim\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
+    "C:\\Users\\dejim\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
