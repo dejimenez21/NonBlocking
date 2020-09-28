@@ -7,10 +7,73 @@
 </head>
 <body>
     <img src="" alt="" id="1">
+
+    <!--<div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>
+    <div class="img"></div>-->
+
+
     <script>
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", "https://localhost:5001/api/images/1", true);
         xhttp.withCredentials = true;
+
+        var value = 14;
+        
+        var resto = value%5;
+
+        var rows = 0;
+        
+        if(value-resto == value){
+            rows = (value-resto)/5
+        }else{
+            rows = ((value-resto)/5)+1
+        }
+
+        //var matris = new Array(rows, 5)
+
+        var arr = [];
+        for(let i = 0; i < 5; i++) {
+        arr.push(new Array(rows));
+        }
+
+
+        //var arr = [];
+    for(let i = 0; i < rows; i++) {
+        arr[i] = [];
+        for(let j = 0; j < arr[i].Length; j++) {
+            document.createElement("div");
+        }
+    }
+
+
+        arr[1][2] = 5;
+
+        console.log(arr);
+
+    
         
         
         xhttp.send();
@@ -25,6 +88,14 @@
                 }
             }
         };
+
+
+        
+
+
+
+
+
         // fetch("https://localhost:5001/api/images", {method:"GET", mode:"cors", cache:"default"})
         // .then(data => console.log(data));
 

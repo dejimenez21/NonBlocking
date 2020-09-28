@@ -556,20 +556,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dejim\\.nuget\\packages\\": {}
+    "C:\\Users\\jctec\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dejim\\OneDrive\\Documents\\INTEC\\Desarrollo web\\Non-Blocking IO\\ImagesAPI\\ImagesAPI.csproj",
+      "projectUniqueName": "C:\\Users\\jctec\\Desktop\\DesarrolloWeb\\API Images\\ImagesAPI.csproj",
       "projectName": "ImagesAPI",
-      "projectPath": "C:\\Users\\dejim\\OneDrive\\Documents\\INTEC\\Desarrollo web\\Non-Blocking IO\\ImagesAPI\\ImagesAPI.csproj",
-      "packagesPath": "C:\\Users\\dejim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dejim\\OneDrive\\Documents\\INTEC\\Desarrollo web\\Non-Blocking IO\\ImagesAPI\\obj\\",
+      "projectPath": "C:\\Users\\jctec\\Desktop\\DesarrolloWeb\\API Images\\ImagesAPI.csproj",
+      "packagesPath": "C:\\Users\\jctec\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jctec\\Desktop\\DesarrolloWeb\\API Images\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\dejim\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\jctec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -619,7 +624,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
