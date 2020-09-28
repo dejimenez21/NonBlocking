@@ -8,8 +8,16 @@
 <body>
     <img src="" alt="">
     <script>
-        fetch("http://localhost:5000/api/images/1", {method:"GET", mode:"cors", cache:"default"}).then(response => response.json())
-        .then(data => console.log(data));
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://localhost:5001/api/images", true);
+        xhttp.withCredentials = true;
+        
+        
+        xhttp.send();
+
+        console.log(xhttp.responseText);
+        // fetch("https://localhost:5001/api/images", {method:"GET", mode:"cors", cache:"default"})
+        // .then(data => console.log(data));
 
     </script>
 </body>

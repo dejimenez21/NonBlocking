@@ -27,6 +27,7 @@ namespace ImagesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<ImageRepo>();
@@ -40,11 +41,18 @@ namespace ImagesAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(
+                options => options.WithOrigins("http://127.0.0.1:5500").AllowCredentials()
+            );
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            
+
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

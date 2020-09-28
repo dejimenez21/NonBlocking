@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
 using ImagesAPI.Dtos;
 using ImagesAPI.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace ImagesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ImagesController : ControllerBase
+    public class ImagesController : Controller
     {
         private readonly ImageRepo _repo;
 
@@ -33,9 +34,11 @@ namespace ImagesAPI.Controllers
             IMapper mapper = config.CreateMapper();
             var source = _repo.GetAllImages();
             var result = mapper.Map<IEnumerable<ImageInfoSummary>>(source);
+           
             return Ok(result);
         }
 
+        
         [HttpGet("{id}")]
         public ActionResult<ImageInfo> GetTImageById(int id)
         {
