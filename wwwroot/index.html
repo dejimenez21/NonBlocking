@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" alt="" id="1">
+    <script>
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://localhost:5001/api/images/1", true);
+        xhttp.withCredentials = true;
+        
+        
+        xhttp.send();
+        xhttp.onload = function () {
+            if (xhttp.readyState === xhttp.DONE) {
+                if (xhttp.status === 200) {
+                    var json = JSON.parse(xhttp.responseText);
+                    var img = document.getElementById("1");
+                    
+                    img.setAttribute("src", 
+                        "data:" + json.mimeType + ";base64," + json.base64);
+                }
+            }
+        };
+        // fetch("https://localhost:5001/api/images", {method:"GET", mode:"cors", cache:"default"})
+        // .then(data => console.log(data));
+
+    </script>
+</body>
+</html>
