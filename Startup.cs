@@ -44,6 +44,9 @@ namespace ImagesAPI
             app.UseCors(
                 options => options.WithOrigins("http://127.0.0.1:5500").AllowCredentials()
             );
+
+            app.UseStaticFiles();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
