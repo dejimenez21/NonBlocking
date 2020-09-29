@@ -1,104 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <img src="" alt="" id="1">
+    <button name="Boton" id="sync">Sync</button>
+    <button name="Boton" id="async">Async</button>
 
-    <!--<div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>-->
 
+    <div class="clearfix"></div>
 
     <script>
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "https://localhost:5001/api/images/1", true);
+
+
+        asyncbtn = document.getElementById("async");
+
+        syncbtn = document.getElementById("sync");
+
+        asyncbtn.addEventListener("click", () => {
+            var xhttp = new XMLHttpRequest();
+
+
+            xhttp.open("GET", "https://localhost:5001/api/images", true);
+            xhttp.withCredentials = true;
+
+            xhttp.send();
+            //console.log("llegue");
+            xhttp.onload = async function () {
+                if (xhttp.readyState === xhttp.DONE) {
+                    if (xhttp.status === 200) {
+                        var json = JSON.parse(xhttp.responseText);
+
+                        for (let index = 0; index < json.length; index++) {
+                                        let div = document.createElement("img");
+                                        let att = document.createAttribute("class");       // Create a "class" attribute
+                                        att.value = "img";                           // Set the value of the class attribute
+                                        div.setAttributeNode(att);
+                                        let body = document.getElementsByTagName('body')[0];
+                                        body.appendChild(div);
+                                        var imgs = document.getElementsByClassName("img");
+                            
+                        }
+
+                        console.log(imgs);
+
+
+
+                        for (let index = 1; index <= json.length; index++) {
+
+                            xhttp.open("GET", "https://localhost:5001/api/images/" + index, true);
+                            xhttp.withCredentials = true;
+
+                            xhttp.send();
+                            //console.log("llegue");
+                            xhttp.onload = await function () {
+                                if (xhttp.readyState === xhttp.DONE) {
+                                    if (xhttp.status === 200) {
+                                        let jsonObject = JSON.parse(xhttp.responseText);
+
+
+                                        
+
+                                        console.log(jsonObject);
+
+                                        //for (let index = 0; index < imgs.length; index++) {
+                                           
+                                            console.log(jsonObject);
+                                            imgs[index].setAttribute("src",
+                                                "data:" + jsonObject.mimeType + ";base64," + jsonObject.base64);
+                                            console.log(index);
+
+                                        //}
+                                    }
+                                }
+                            };
+
+
+                        }
+                    }
+                }
+            };
+        })
+
+        syncbtn.addEventListener("click", () => {
+            var xhttp = new XMLHttpRequest();
+
+
+
+
+            xhttp.open("GET", "https://localhost:5001/api/images", true);
         xhttp.withCredentials = true;
 
-        var value = 14;
-        
-        var resto = value%5;
-
-        var rows = 0;
-        
-        if(value-resto == value){
-            rows = (value-resto)/5
-        }else{
-            rows = ((value-resto)/5)+1
-        }
-
-        //var matris = new Array(rows, 5)
-
-        var arr = [];
-        for(let i = 0; i < 5; i++) {
-        arr.push(new Array(rows));
-        }
-
-
-        //var arr = [];
-    for(let i = 0; i < rows; i++) {
-        arr[i] = [];
-        for(let j = 0; j < arr[i].Length; j++) {
-            document.createElement("div");
-        }
-    }
-
-
-        arr[1][2] = 5;
-
-        console.log(arr);
-
-    
-        
-        
         xhttp.send();
+            //console.log("llegue");
         xhttp.onload = function () {
             if (xhttp.readyState === xhttp.DONE) {
                 if (xhttp.status === 200) {
                     var json = JSON.parse(xhttp.responseText);
-                    var img = document.getElementById("1");
-                    
-                    img.setAttribute("src", 
-                        "data:" + json.mimeType + ";base64," + json.base64);
+
+                    for (let index = 0; index < json.length; index++) {
+                        var div = document.createElement("img");
+                        var att = document.createAttribute("class");       // Create a "class" attribute
+                        att.value = "img";                           // Set the value of the class attribute
+                        div.setAttributeNode(att);
+
+                var body = document.getElementsByTagName('body')[0];
+                body.appendChild(div);
+                        
+                    }
+
                 }
             }
-        };
+        }});
 
-
-        
-
-
-
-
-
-        // fetch("https://localhost:5001/api/images", {method:"GET", mode:"cors", cache:"default"})
-        // .then(data => console.log(data));
 
     </script>
+    <style>
+        .img {
+            height: 175px;
+            width: 15%;
+            margin: 15px;
+            padding: 0px;
+            border: 2px solid black;
+
+            float: left;
+        }
+
+        .clearfix {
+            clear: both;
+            display: block;
+        }
+
+        .img {
+            height: 175px;
+            width: 15%;
+        }
+
+        #sync {
+            margin: 10px;
+            float: left;
+        }
+
+        #async {
+            margin: 10px;
+            float: left;
+        }
+    </style>
 </body>
+
 </html>
