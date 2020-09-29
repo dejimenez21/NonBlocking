@@ -1,33 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <img src="" alt="" id="1">
+    <button name="Boton" id="sync">Sync</button>
+    <button name="Boton" id="async">Async</button>
+    <h3 id="mode"></h3>
+
+
+    <div class="clearfix"></div>
+
     <script>
+        // fetch("https://localhost:5001/api/images/serverMode")
+        //     .then(response => response.json())
+        //     .then(mode => console.log(mode));
+        var json;
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "https://localhost:5001/api/images/1", true);
-        xhttp.withCredentials = true;
-        
-        
-        xhttp.send();
-        xhttp.onload = function () {
-            if (xhttp.readyState === xhttp.DONE) {
-                if (xhttp.status === 200) {
-                    var json = JSON.parse(xhttp.responseText);
-                    var img = document.getElementById("1");
-                    
-                    img.setAttribute("src", 
-                        "data:" + json.mimeType + ";base64," + json.base64);
-                }
+        xhttp.open("GET", "https://localhost:5001/api/images/serverMode", false);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === xhttp.DONE && xhttp.status === 200) {
+                document.getElementById("mode").innerHTML = xhttp.responseText;
             }
-        };
-        // fetch("https://localhost:5001/api/images", {method:"GET", mode:"cors", cache:"default"})
-        // .then(data => console.log(data));
+        }
+        xhttp.send();
+
+        xhttp.open("GET", "https://localhost:5001/api/images", false);
+        xhttp.withCredentials = true;  
+
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === xhttp.DONE && xhttp.status === 200) {
+                json = JSON.parse(xhttp.responseText);
+
+                for (let index = 0; index < json.length; index++) {
+                    let div = document.createElement("img");
+                    let divClass = document.createAttribute("class");       // Create a "class" attribute
+                    let divId = document.createAttribute("id");       // Create a "id" attribute
+                    divClass.value = "img";                           // Set the value of the class attribute
+                    divId.value = `${json[index].id}`;                           // Set the value of the class attribute
+                    div.setAttributeNode(divClass);
+                    div.setAttributeNode(divId);
+                    let body = document.getElementsByTagName('body')[0];
+                    body.appendChild(div);
+                }
+
+                var imgs = document.getElementsByClassName("img");
+                console.log(json); 
+            }  
+        }; 
+        xhttp.send();
+
+        asyncbtn = document.getElementById("async");
+        syncbtn = document.getElementById("sync");
+
+        syncbtn.addEventListener("click", () => {
+            console.log(json)
+            xhr = new XMLHttpRequest();                
+            json.forEach(element => {
+                xhr.open("GET", "https://localhost:5001/api/images/" + element.id, false);
+                xhr.withCredentials = true;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === xhr.DONE && xhr.status === 200) {
+                        let jsonObject = JSON.parse(xhr.responseText);
+                        console.log(jsonObject);
+                        document.getElementById(element.id).setAttribute("src",
+                            "data:" + jsonObject.mimeType + ";base64," + jsonObject.base64); 
+                    }
+                }
+                xhr.send();
+            });
+        });
+        
+        asyncbtn.addEventListener("click", () => {
+            json.forEach(element => {
+                let xhr = new XMLHttpRequest();                
+                xhr.open("GET", "https://localhost:5001/api/images/" + element.id);
+                xhr.withCredentials = true;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === xhr.DONE && xhr.status === 200) {
+                        let jsonObject = JSON.parse(xhr.responseText);
+                        console.log(jsonObject);
+                        document.getElementById(element.id).setAttribute("src",
+                            "data:" + jsonObject.mimeType + ";base64," + jsonObject.base64); 
+                    }
+                }
+                xhr.send();
+            });
+        });
+        // syncbtn.addEventListener("click", () => {
+        //     var xhttp = new XMLHttpRequest();
+
+
+
+
+        //     xhttp.open("GET", "https://localhost:5001/api/images", true);
+        // xhttp.withCredentials = true;
+
+        // xhttp.send();
+        //     //console.log("llegue");
+        // xhttp.onload = function () {
+        //     if (xhttp.readyState === xhttp.DONE) {
+        //         if (xhttp.status === 200) {
+        //             var json = JSON.parse(xhttp.responseText);
+
+        //             for (let index = 0; index < json.length; index++) {
+        //                 var div = document.createElement("img");
+        //                 var att = document.createAttribute("class");       // Create a "class" attribute
+        //                 att.value = "img";                           // Set the value of the class attribute
+        //                 div.setAttributeNode(att);
+
+        //         var body = document.getElementsByTagName('body')[0];
+        //         body.appendChild(div);
+                        
+        //             }
+
+        //         }
+        //     }
+        // }});
+
 
     </script>
+    <style>
+        .img {
+            height: 175px;
+            width: 15%;
+            margin: 15px;
+            padding: 0px;
+            border: 2px solid black;
+
+            float: left;
+        }
+
+        .clearfix {
+            clear: both;
+            display: block;
+        }
+
+        .img {
+            height: 175px;
+            width: 15%;
+        }
+
+        #sync {
+            margin: 10px;
+            float: left;
+        }
+
+        #async {
+            margin: 10px;
+            float: left;
+        }
+    </style>
 </body>
+
 </html>

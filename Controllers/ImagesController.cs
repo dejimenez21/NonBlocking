@@ -18,51 +18,66 @@ namespace ImagesAPI.Controllers
     public class ImagesController : Controller
     {
         private readonly ImageRepo _repo;
+        private readonly ServerMode _mode;
 
         public ImagesController(ImageRepo repo)
         {
             _repo = repo;
+            if(Environment.GetCommandLineArgs().Length > 1)
+            {
+                _mode = Environment.GetCommandLineArgs()[1] == "nb" ? ServerMode.NonBlocking : ServerMode.Blocking;
+                System.Console.WriteLine(Environment.GetCommandLineArgs()[1]); 
+            }
+            else 
+                _mode = ServerMode.Blocking;
         }
 
         [HttpGet("")]
-        public ActionResult<IEnumerable<ImageInfoSummary>> GetAllImages()
+        public async Task<ActionResult<IEnumerable<ImageInfoSummary>>> GetAllImages()
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ImageInfo, ImageInfoSummary>();
-                }); 
+            IEnumerable<ImageInfo> source;
+            if(_mode == ServerMode.Blocking)
+            {
+                source = _repo.GetAllImages(); 
+            }
+            else
+            {
+                source = await _repo.GetAllImagesAsync();
+            }
 
+            var config = new MapperConfiguration(cfg => {
+                    cfg.CreateMap<ImageInfo, ImageInfoSummary>();
+                    }); 
             IMapper mapper = config.CreateMapper();
-            var source = _repo.GetAllImages();
             var result = mapper.Map<IEnumerable<ImageInfoSummary>>(source);
-           
+            
             return Ok(result);
         }
 
         
         [HttpGet("{id}")]
-        public ActionResult<ImageInfo> GetTImageById(int id)
+        public async Task<ActionResult<ImageInfo>> GetTImageById(int id)
         {
             var image = new ImageInfo();
-            var exist = _repo.GetImage(id, out image);
+            var exist = false;
+            if(_mode == ServerMode.Blocking)
+            {
+                exist = _repo.GetImage(id, out image); 
+            }
+            else
+            {
+                image = await _repo.GetImageAsync(id);
+            }
+            
+            
             return Ok(image);
         }
 
-        // [HttpPost("")]
-        // public ActionResult<TModel> PostTModel(TModel model)
-        // {
-        //     return null;
-        // }
+        [HttpGet("serverMode")]
+        public ActionResult<string> GetServerMode()
+        {
+            return Ok(_mode.ToString());
+        }
 
-        // [HttpPut("{id}")]
-        // public IActionResult PutTModel(int id, TModel model)
-        // {
-        //     return NoContent();
-        // }
-
-        // [HttpDelete("{id}")]
-        // public ActionResult<TModel> DeleteTModelById(int id)
-        // {
-        //     return null;
-        // }
     }
 }

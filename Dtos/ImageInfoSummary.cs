@@ -4,6 +4,7 @@ namespace ImagesAPI.Dtos
     {
         public int Id { get; set; }
         public string MimeType { get; set; }
+        public long Size { get; set; }
         
     }
 }
